@@ -1,0 +1,10 @@
+# Local and generated files
+.netlify/
+.tanstack/
+.content-collections/
+node_modules/
+dist/
+*.tgz
+node_modules
+node_modules
+node_modules
