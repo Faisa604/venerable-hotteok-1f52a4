@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ARTICLES, ISSUES, type Issue } from '@/data/issues'
+import { ARTICLES, CHARACTERS, ISSUES, type Issue } from '@/data/issues'
 
 export const Route = createFileRoute('/')({
   component: ElJabnaPage,
@@ -354,12 +354,14 @@ function ElJabnaPage() {
         <div className="border border-ink/10 bg-paper-warm/40 p-4">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
             <h3 className="font-kufi text-sm font-extrabold">وجوه الجبنة</h3>
-            <span className="font-naskh text-xs text-ink-muted">سبعة شخصيات — كل واحدة تشيل نكتة وقصة</span>
+            <span className="font-naskh text-xs text-ink-muted">ست شخصيات · سبعة أعداد — كل واحدة تشيل نكتة وقصة</span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
-            {ISSUES.slice().reverse().map((iss) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+            {CHARACTERS.map((character) => {
+              const iss = character.issue
+              return (
               <a
-                key={iss.id}
+                key={character.name}
                 href={`#article-${iss.n}`}
                 className="group flex flex-col items-center gap-2 border border-ink/10 bg-white p-2 hover:border-accent/30 hover:bg-white transition-colors text-center"
               >
@@ -370,11 +372,14 @@ function ElJabnaPage() {
                   </picture>
                 </div>
                 <div className="min-h-[40px]">
-                  <p className="font-kufi text-[11px] font-bold leading-tight">{iss.character}</p>
-                  <p className="font-kufi text-[11px] text-accent">{iss.numberLabel}</p>
+                  <p className="font-kufi text-[11px] font-bold leading-tight">{character.name}</p>
+                  <p className="font-kufi text-[11px] text-accent">
+                    {character.issueNumbers.length > 1 ? 'العددان ٦ و٧' : iss.numberLabel}
+                  </p>
                 </div>
               </a>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -425,13 +430,15 @@ function ElJabnaPage() {
                         <p className="font-kufi text-xs text-ink-muted mt-1">بقلم هيئة تحرير الجبنة — ملف الشخصيات</p>
 
                         <div className="mt-4 font-naskh text-[15px] leading-[1.95] text-ink-soft">
-                          <p className="drop-cap">{article.intro}</p>
-                          {article.paragraphs.map((p, i) => (
-                            <p key={i} className="mt-3">
-                              {p}
-                            </p>
-                          ))}
+                          <p className="drop-cap line-clamp-4">{article.intro}</p>
                         </div>
+
+                        <a
+                          href={`/posts/${article.issueId}`}
+                          className="mt-4 inline-flex items-center text-xs font-kufi font-bold text-accent hover:text-ink hover:underline underline-offset-4"
+                        >
+                          قراءة المقال كاملاً ←
+                        </a>
 
                         <blockquote className="pull-quote mt-6 mr-0 pr-4 py-4 pl-4">
                           <p className="font-kufi text-[16px] sm:text-[17px] font-bold leading-relaxed text-accent">

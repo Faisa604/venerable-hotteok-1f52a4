@@ -122,6 +122,32 @@ export const ISSUES: Issue[] = [
   },
 ]
 
+export type Character = {
+  name: string
+  issue: Issue
+  issueIds: string[]
+  issueNumbers: number[]
+}
+
+export const CHARACTERS: Character[] = Array.from(
+  ISSUES.reduce((groups, issue) => {
+    const name = issue.character === 'ياسر (عدوي)' ? 'عدوي' : issue.character
+    const current = groups.get(name)
+    if (current) {
+      current.issueIds.push(issue.id)
+      current.issueNumbers.push(issue.n)
+    } else {
+      groups.set(name, {
+        name,
+        issue,
+        issueIds: [issue.id],
+        issueNumbers: [issue.n],
+      })
+    }
+    return groups
+  }, new Map<string, Character>()).values(),
+)
+
 export type Article = {
   issueId: string
   n: number

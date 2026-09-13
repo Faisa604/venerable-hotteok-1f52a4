@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { marked } from 'marked'
 import { allPosts } from '../../.content-collections/generated'
 import { ARTICLES, ISSUES } from '@/data/issues'
+import { WhatsAppShare } from '@/components/whatsapp-share'
 
 export const Route = createFileRoute('/posts/$slug')({
   loader: async ({ params }) => {
@@ -119,6 +120,9 @@ function RouteComponent() {
                 {t}
               </Link>
             ))}
+          </div>
+          <div className="mt-4">
+            <WhatsAppShare title={article.title} path={`/posts/${article.issueId}`} />
           </div>
         </div>
 

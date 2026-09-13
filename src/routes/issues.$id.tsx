@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ISSUES, ARTICLES } from '@/data/issues'
+import { WhatsAppShare } from '@/components/whatsapp-share'
 
 export const Route = createFileRoute('/issues/$id')({
   loader: async ({ params }) => {
@@ -60,13 +61,16 @@ function RouteComponent() {
               <img src={issue.jpg} alt={issue.alt} width={900} height={1350} className="w-full h-auto aspect-[2/3] object-cover" />
             </picture>
           </div>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             <a href={issue.original} download className="flex-1 text-center border border-ink/15 bg-white font-kufi text-xs font-bold py-2.5 hover:bg-paper-dim transition-colors">
               تحميل الأصلي
             </a>
             <Link to="/" hash="archive" className="flex-1 text-center bg-ink text-paper font-kufi text-xs font-bold py-2.5 hover:bg-accent transition-colors">
               العودة للأرشيف
             </Link>
+          </div>
+          <div className="mt-2">
+            <WhatsAppShare title={`${issue.numberLabel} — ${issue.headline}`} path={`/issues/${issue.id}`} />
           </div>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {issue.tags.map((t) => (

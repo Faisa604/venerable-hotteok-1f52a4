@@ -62,7 +62,7 @@ Legacy articles live in `content/posts/*.md` (kept for compatibility). Frontmatt
 - `author`, `date`, `image`, `slug` (optional), `featured` (optional)
 
 Jabna tags (used in ISSUES/ARTICLES + filtering): `الشخصيات`، `اجتماعي`، `ساخر`، `شعري`.
-Add a new issue by editing `src/data/issues.ts` (and optionally dropping a `.md` in `content/issues/`).
+Add a new issue by editing `src/data/issues.ts` (and optionally dropping a `.md` in `content/issues/`). Keep the `character` value stable for repeated appearances: the home-page character gallery deduplicates by that value. Add a new character by adding its first issue and article; the gallery updates automatically. For a character with multiple issues, keep each issue in `ISSUES` and use the same character name, as with البت الحديقة in issues 6 and 7.
 
 ## Design Notes
 
